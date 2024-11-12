@@ -1,0 +1,23 @@
+import java.io.File;
+import java.util.List;
+
+public class Principal {
+
+    public static void main(String[] args) {
+        FileController controller = new FileController();
+        String caminhoDiretorio = "C:\\TEMP"; // Insira o caminho do diretório
+
+        try {
+            // Lista os arquivos em ordem de tamanho
+            List<File> arquivos = controller.listarArquivosPorTamanho(caminhoDiretorio);
+            System.out.println("Arquivos no diretório '" + caminhoDiretorio + "' em ordem de tamanho (MB):");
+
+            for (File arquivo : arquivos) {
+                double tamanhoMB = controller.converterParaMB(arquivo.length());
+                System.out.printf("Nome: %s - Tamanho: %.2f MB%n", arquivo.getName(), tamanhoMB);
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro: " + e.getMessage());
+        }
+    }
+}
